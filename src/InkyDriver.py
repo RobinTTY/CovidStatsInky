@@ -7,9 +7,9 @@ from inky import InkyPHAT
 class InkyDriver:
     def __init__(self):
         self.inky = InkyPHAT('yellow')
-        self.current_height = 0
 
-    def create_new_image(self, countries, new_cases):
+    def create_new_image(self, countries_cases):
+        current_height = 0
         # inky_display.set_rotation(180)
         self.inky.set_border(self.inky.RED)
 
@@ -21,13 +21,12 @@ class InkyDriver:
         font = ImageFont.truetype(HankenGroteskBold, 20)
 
         # Calculate the positioning and draw the text
-        for country in countries:
-            text = str(countries[country]) + ": " + str(new_cases[0])
+        for key in countries_cases:
+            text = str(key) + ": " + str(countries_cases[key])
             width, height = font.getsize(text)
             center = int((self.inky.WIDTH - width) / 2)
-            draw.text((center, self.current_height), text, self.inky.BLACK, font=font)
-            self.current_height += height
-            new_cases.pop(0)
+            draw.text((center, current_height), text, self.inky.BLACK, font=font)
+            current_height += height
 
         # Display the completed picture
         self.inky.set_image(img)
