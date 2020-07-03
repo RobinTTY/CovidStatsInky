@@ -1,3 +1,4 @@
 Pillow
 inky
 font_hanken_grotesk
+numpy
