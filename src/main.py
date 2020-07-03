@@ -16,11 +16,10 @@ def main():
 
     start_time = time.time()
     while True:
-        print("tick")
         new_cases = DataProvider.get_new_cases_day(countries)
 
         # only print if numbers changed
-        if not np.array_equal(new_cases, last_cycle):
+        if not np.array_equal(new_cases.values(), last_cycle):
             inky.create_new_image(new_cases)
 
         last_cycle = list(new_cases.values())
