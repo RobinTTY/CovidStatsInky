@@ -1,17 +1,19 @@
-import json
-from collections import namedtuple
 from DataProvider import DataProvider
+from InkyDriver import InkyDriver
 
 def main():
     source = DataProvider()
-    new_cases = source.get_new_cases_day()
-    decode_json(new_cases)
-    print(new_cases)
+    inky = InkyDriver()
+    new_cases = []
+    countries = {
+        "DE": "Germany",
+        "US": "United States",
+    }
 
+    for key in countries.keys():
+        new_cases.append(source.get_new_cases_day(key))
 
-def decode_json(raw_json):
-    parsed_json = json.loads(raw_json, object_hook=lambda d: namedtuple('X', d.keys())(*d.values()))
-    print(parsed_json[0].country_code)
+    inky.create_new_image(countries, new_cases)
 
 
 if __name__ == '__main__':
