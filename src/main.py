@@ -7,12 +7,7 @@ from InkyDriver import InkyDriver
 def main():
     inky = InkyDriver()
     last_cycle = []
-    countries = {
-        "DE": "Germany",
-        "US": "United States",
-        "IN": "India",
-        "BR": "Brazil",
-    }
+    countries = ["Germany"]  # maximum is 5
 
     start_time = time.time()
     try:
@@ -20,10 +15,11 @@ def main():
             new_cases = DataProvider.get_new_cases_day(countries)
 
             # only print if numbers changed
-            if not array_equal(new_cases.values(), last_cycle):
+            cases = [cases[1] for cases in new_cases]
+            if not array_equal(cases, last_cycle):
                 inky.create_new_image(new_cases)
 
-            last_cycle = list(new_cases.values())
+            last_cycle = cases
             # sleep 2 minutes
             time.sleep(120.0 - ((time.time() - start_time) % 120.0))
     except Exception as exception:

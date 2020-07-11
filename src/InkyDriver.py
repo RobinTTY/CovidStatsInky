@@ -21,8 +21,8 @@ class InkyDriver:
         font = ImageFont.truetype(HankenGroteskBold, 20)
 
         # Calculate the positioning and draw the text
-        for key in countries_cases:
-            text = str(key) + ": " + str(countries_cases[key])
+        for countryCases in countries_cases:
+            text = str(countryCases[0]) + ": " + str(countryCases[1])
             width, height = font.getsize(text)
             center = int((self.inky.WIDTH - width) / 2)
             draw.text((center, current_height), text, self.inky.BLACK, font=font)
